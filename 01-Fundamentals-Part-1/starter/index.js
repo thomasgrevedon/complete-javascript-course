@@ -2,3 +2,12 @@
 // const years3 = 'test';
 // console.log(years3);
 // console.log(typeof null);
+// const test = 'a';
+// test = 'b';
+// var test = 'a';
+// console.log(test);
+console.log('Hello 😍');
+const money = 0;
+if (money) console.log('Hello');
+else console.log('I need money my friend');
+console.log(18 + '18');
