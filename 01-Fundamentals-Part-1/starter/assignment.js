@@ -132,19 +132,29 @@
 
 // Exercice on changing a switch statment to a if-else statement.
 
-const day = 'saurday';
+// const day = 'saurday';
 
-if (day === 'monday') {
-    console.log('Plan course structure');
-    console.log('go to coding meetup');
-} else if (day === 'tuesday') {
-    console.log('Prepare video theory');
-} else if (day === 'wednesday' || day === 'thursday') {
-    console.log('Wrtie code example');
-} else if (day === 'friday') {
-    console.log('record video');
-} else if (day === 'saturday' || day === 'sunday') {
-    console.log('Enjoy the weekend');
-} else {
-    console.log('Not a valid day');
-}
+// if (day === 'monday') {
+//     console.log('Plan course structure');
+//     console.log('go to coding meetup');
+// } else if (day === 'tuesday') {
+//     console.log('Prepare video theory');
+// } else if (day === 'wednesday' || day === 'thursday') {
+//     console.log('Wrtie code example');
+// } else if (day === 'friday') {
+//     console.log('record video');
+// } else if (day === 'saturday' || day === 'sunday') {
+//     console.log('Enjoy the weekend');
+// } else {
+//     console.log('Not a valid day');
+// }
+
+// CODING CHALLENGE #4
+const bill = 430;
+const tip = bill >= 50 && bill <= 300 ? 15 / 100 : 20 / 100;
+
+console.log(
+    `The bill was ${bill}, the tip was ${bill * tip}, and the total value ${
+        bill + bill * tip
+    }`
+);
