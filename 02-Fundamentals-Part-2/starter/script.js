@@ -20,7 +20,7 @@
 // checkWinner(avgDolphins, avgKoalas);
 
 // CODING CHALLENGE #2
-const calcTip = (billeValue) =>
+const calcTip = billeValue =>
     billeValue >= 50 && billeValue <= 300
         ? 0.15 * billeValue
         : 0.2 * billeValue;
@@ -115,7 +115,7 @@ for (let i = 0; i < bills.length; i++) {
 }
 console.log(tips, totals);
 
-const calcAverage = (arr) => {
+const calcAverage = arr => {
     let sum = 0;
     for (let i = 0; i < arr.length; i++) {
         sum += arr[i];
