@@ -27,6 +27,8 @@ document.querySelector('.check').addEventListener('click', () => {
       displayMessage('That the right number');
       document.querySelector('body').style.backgroundColor = '#60b347';
       found = true;
+      document.querySelector('.number').textContent = randomNumber;
+      document.querySelector('.number').style.width = '20rem';
     }
     if (score === 0) {
       displayMessage('you lost');
@@ -43,4 +45,6 @@ document.querySelector('.again').addEventListener('click', () => {
   randomNumber = Math.trunc(Math.random() * 20) + 1;
   document.querySelector('body').style.backgroundColor = '#222';
   found = false;
+  document.querySelector('.number').textContent = '?';
+  document.querySelector('.number').style.width = '15rem';
 });
