@@ -8,6 +8,7 @@
 let randomNumber = Math.trunc(Math.random() * 20) + 1;
 let score = 20;
 let found;
+let highestScore = 0;
 
 const displayMessage = message => {
   document.querySelector('.message').textContent = message;
@@ -17,10 +18,10 @@ document.querySelector('.check').addEventListener('click', () => {
   const guess = Number(document.querySelector('.guess').value);
   if (!found) {
     if (!guess) displayMessage('🛑 No number filled in');
-    else if (guess > randomNumber && guess !== randomNumber) {
+    else if (guess > randomNumber) {
       displayMessage('Too high!');
       if (score > 0) document.querySelector('.score').textContent = --score;
-    } else if (guess < randomNumber && guess !== randomNumber) {
+    } else if (guess < randomNumber) {
       displayMessage('Too low');
       if (score > 0) document.querySelector('.score').textContent = --score;
     } else if (guess === randomNumber) {
@@ -29,6 +30,10 @@ document.querySelector('.check').addEventListener('click', () => {
       found = true;
       document.querySelector('.number').textContent = randomNumber;
       document.querySelector('.number').style.width = '20rem';
+      if (score > highestScore) {
+        document.querySelector('.highscore').textContent = score;
+        highestScore = score;
+      }
     }
     if (score === 0) {
       displayMessage('you lost');
