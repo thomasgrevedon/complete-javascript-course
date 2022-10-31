@@ -19,3 +19,8 @@ btns.forEach(btn => {
 
 overlay.addEventListener('click', hiddenModal);
 closeBtnModal.addEventListener('click', hiddenModal);
+
+document.addEventListener('keydown', e => {
+  if (e.code === 'Escape' && !modal.classList.contains('.hiiden'))
+    hiddenModal();
+});
