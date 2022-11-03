@@ -32,3 +32,7 @@ const restaurant = {
 const nested = [2, 4, [5, 6]];
 const [first, , arr] = nested;
 console.log(first, arr);
+
+// join 2 arrays
+const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(menu);
