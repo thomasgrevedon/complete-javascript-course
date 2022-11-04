@@ -27,7 +27,7 @@ const restaurant = {
     },
   },
 };
-
+/*
 // Exercice on arrays
 const nested = [2, 4, [5, 6]];
 const [first, , arr] = nested;
@@ -36,7 +36,7 @@ console.log(first, arr);
 // join 2 arrays
 const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
 console.log(menu);
-
+*/
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -99,7 +99,7 @@ TEST DATA FOR 6: Use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Th
 
 GOOD LUCK 😀
 */
-
+/*
 //1
 const [players1, players2] = game.players;
 console.log(players1);
@@ -132,3 +132,40 @@ game.printGoals(...game.scored);
 console.log(
   (team1 < team2 && 'team 1 will win') || (team2 < team1 && 'team2 will win')
 );
+*/
+
+//CHALLENGE 2
+
+//1
+for (const [i, player] of game.scored.entries()) {
+  console.log(`Goal ${i + 1}: ${player}`);
+}
+
+//2
+let total = 0;
+for (const oddValue of Object.values(game.odds)) {
+  total += oddValue;
+}
+console.log(total / Object.values(game.odds).length);
+
+console.log(
+  Object.values(game.odds).reduce((acc, odd) => {
+    return acc + odd;
+  }, 0) / Object.values(game.odds).length
+);
+
+//3
+for (const team of Object.keys(game.odds)) {
+  (game.team &&
+    console.log(`Odd of victory ${game[team]}: ${game.odds[team]} `)) ||
+    console.log(`Odd of draw: ${game.odds[team]} `);
+}
+
+// BONUS
+const playerScored = game.scored.reduce((acc, player) => {
+  acc[player] ? acc[player]++ : (acc[player] = 1);
+  // acc[player] ?? acc[player] = 0;
+  // Object.keys(acc).includes(player) ? (acc[player] += 1) : (acc[player] = 0);
+  return acc;
+}, {});
+console.log(playerScored);
