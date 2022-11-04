@@ -28,7 +28,15 @@ const restaurant = {
   },
 };
 
-<<<<<<< HEAD
+// Exercice on arrays
+const nested = [2, 4, [5, 6]];
+const [first, , arr] = nested;
+console.log(first, arr);
+
+// join 2 arrays
+const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
+console.log(menu);
+
 const game = {
   team1: 'Bayern Munich',
   team2: 'Borrussia Dortmund',
@@ -124,13 +132,3 @@ game.printGoals(...game.scored);
 console.log(
   (team1 < team2 && 'team 1 will win') || (team2 < team1 && 'team2 will win')
 );
-=======
-// Exercice on arrays
-const nested = [2, 4, [5, 6]];
-const [first, , arr] = nested;
-console.log(first, arr);
-
-// join 2 arrays
-const menu = [...restaurant.mainMenu, ...restaurant.starterMenu];
-console.log(menu);
->>>>>>> b5dd0e7d7523c15b4f5015c36666e878edbdf1c7
