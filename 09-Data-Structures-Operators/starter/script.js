@@ -135,7 +135,7 @@ console.log(
 */
 
 //CHALLENGE 2
-
+/*
 //1
 for (const [i, player] of game.scored.entries()) {
   console.log(`Goal ${i + 1}: ${player}`);
@@ -169,3 +169,18 @@ const playerScored = game.scored.reduce((acc, player) => {
   return acc;
 }, {});
 console.log(playerScored);
+*/
+
+const quizz = new Map([
+  ['question', 'What is the best prorgramming language?'],
+  [1, 'C'],
+  [2, 'Java'],
+  [3, 'JavaScript'],
+  [true, 'That correct!! '],
+  [false, 'Not correct'],
+]);
+for (const [key, val] of quizz) {
+  if (typeof key === 'number') console.log(`${key}: ${val}`);
+}
+const ans = prompt('What is the best programming language');
+console.log(quizz.get(Number(ans) === 3));
