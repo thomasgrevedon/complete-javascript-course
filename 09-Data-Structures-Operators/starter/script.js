@@ -170,7 +170,7 @@ const playerScored = game.scored.reduce((acc, player) => {
 }, {});
 console.log(playerScored);
 */
-
+/*
 const quizz = new Map([
   ['question', 'What is the best prorgramming language?'],
   [1, 'C'],
@@ -184,3 +184,39 @@ for (const [key, val] of quizz) {
 }
 const ans = prompt('What is the best programming language');
 console.log(quizz.get(Number(ans) === 3));
+*/
+
+// CHALLENGE 3
+const gameEvents = new Map([
+  [17, '⚽️ GOAL'],
+  [36, '🔁 Substitution'],
+  [47, '⚽️ GOAL'],
+  [61, '🔁 Substitution'],
+  [64, '🔶 Yellow card'],
+  [69, '🔴 Red card'],
+  [70, '🔁 Substitution'],
+  [72, '🔁 Substitution'],
+  [76, '⚽️ GOAL'],
+  [80, '⚽️ GOAL'],
+  [92, '🔶 Yellow card'],
+]);
+
+//1
+const events = [...new Set(gameEvents.values())];
+console.log(events);
+
+//2
+console.log(gameEvents);
+gameEvents.delete(64);
+console.log(gameEvents);
+
+//3
+console.log(
+  `An event happened every ${90 / [...gameEvents.keys()].length} minutes`
+);
+
+//4
+for (const [key, val] of gameEvents) {
+  if (key <= 45) console.log(`[FIRST HALF]: ${key}: ${val}`);
+  else console.log(`[SECOND HALF] ${key}: ${val}`);
+}
