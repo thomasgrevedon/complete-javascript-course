@@ -185,7 +185,7 @@ for (const [key, val] of quizz) {
 const ans = prompt('What is the best programming language');
 console.log(quizz.get(Number(ans) === 3));
 */
-
+/*
 // CHALLENGE 3
 const gameEvents = new Map([
   [17, '⚽️ GOAL'],
@@ -220,3 +220,10 @@ for (const [key, val] of gameEvents) {
   if (key <= 45) console.log(`[FIRST HALF]: ${key}: ${val}`);
   else console.log(`[SECOND HALF] ${key}: ${val}`);
 }
+*/
+
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+document.querySelector('button').addEventListener('click', () => {
+  const msg = document.querySelector('textarea').value;
+});
