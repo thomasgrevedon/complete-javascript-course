@@ -232,6 +232,7 @@ delayed_departure
 */
 
 //CHALLLENGE 4
+/*
 document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 document.querySelector('button').addEventListener('click', () => {
@@ -254,4 +255,26 @@ document.querySelector('button').addEventListener('click', () => {
     }
     console.log(toLog);
   });
+});
+*/
+
+/*
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+*/
+
+// CHALLENGE 4 after gettting the correction
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+document.querySelector('button').addEventListener('click', () => {
+  const msg = document.querySelector('textarea').value;
+  const rows = msg.split(`\n`);
+  for (const [i, row] of rows.entries()) {
+    let [first, second] = row.trim().toLowerCase().split('_');
+    let word = `${first}${second.replace(second[0], second[0].toUpperCase())}`;
+    console.log(`${word.padEnd(20)}${'✅'.repeat(i + 1)}`);
+  }
 });
