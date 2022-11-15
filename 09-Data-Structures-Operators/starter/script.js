@@ -222,8 +222,36 @@ for (const [key, val] of gameEvents) {
 }
 */
 
+// TEST DATAs
+/*
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+*/
+
+//CHALLLENGE 4
 document.body.append(document.createElement('textarea'));
 document.body.append(document.createElement('button'));
 document.querySelector('button').addEventListener('click', () => {
   const msg = document.querySelector('textarea').value;
+  const wordsArray = msg.split(`\n`).map(word => {
+    const splittedWord = word.trim().split('_');
+    splittedWord[0] = splittedWord[0].toLowerCase();
+    splittedWord[1] =
+      splittedWord[1].slice(0, 1).toUpperCase() +
+      splittedWord[1].slice(1).toLocaleLowerCase();
+    return splittedWord.join('');
+  });
+  wordsArray.forEach((word, index) => {
+    let toLog = word;
+    for (let i = 0; i < 20 - word.length; i++) {
+      toLog += ' ';
+    }
+    for (let i = -1; i < index; i++) {
+      toLog += '\uD83D\uDC04';
+    }
+    console.log(toLog);
+  });
 });
