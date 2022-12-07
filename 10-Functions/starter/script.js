@@ -1,5 +1,5 @@
 'use strict';
-
+/*
 //Exercice on functions return another functions
 const greet = greeting => name => console.log(`${greeting} ${name}`);
 //greet('hey')('Thomas');
@@ -14,3 +14,4 @@ const addVAT2 = function (rate) {
 };
 
 console.log(addVAT2.bind(null, 0.23)().bind(null, 100)());
+*/
