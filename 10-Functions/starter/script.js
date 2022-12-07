@@ -15,3 +15,9 @@ const addVAT2 = function (rate) {
 
 console.log(addVAT2.bind(null, 0.23)().bind(null, 100)());
 */
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+  document.body.addEventListener('click', () => (header.style.color = 'blue'));
+})();
