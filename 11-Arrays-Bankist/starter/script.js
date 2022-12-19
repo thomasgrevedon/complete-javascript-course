@@ -91,6 +91,13 @@ const addMovement = movements => {
 };
 addMovement(movements);
 
+const balanceToDisplay = mvts => {
+  const balance = mvts.reduce((acc, mvt) => acc + mvt, 0);
+  labelBalance.innerHTML = `${balance} €`;
+};
+balanceToDisplay(account1.movements);
+
+
 /////////////////////////////////////////////////
 
 // EXERCICES AND CHALLENGE
@@ -130,3 +137,4 @@ const checkDogs = (dogsJulia, dogsKate) => {
 checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 */
+
