@@ -138,3 +138,10 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 */
 
+//chalenge 2
+// TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+// TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+const calcAverageHumanAge = arrAges => arrAges.map(age => age <= 2 ? age * 2 : 16 + age * 4).filter(humanAge => humanAge >= 18 ).reduce((acc, humanAge, i, arr) => i === arr.length - 1 ? (acc + humanAge)/ arr.length  : (acc + humanAge), 0);
+console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
+console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
+console.log([16, 6, 10, 5, 6, 1, 4].map(age => age <= 2 ? age * 2 : 16 + age * 4).filter(humanAge => humanAge >= 18 ));
