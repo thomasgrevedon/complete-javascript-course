@@ -83,7 +83,7 @@ const addMovement = movements => {
           <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-          <div class="movements__value">${movement} €</div>
+          <div class="movements__value">${movement}€</div>
     </div>
     `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -93,10 +93,20 @@ addMovement(movements);
 
 const balanceToDisplay = mvts => {
   const balance = mvts.reduce((acc, mvt) => acc + mvt, 0);
-  labelBalance.innerHTML = `${balance} €`;
+  labelBalance.innerHTML = `${balance}€`;
 };
 balanceToDisplay(account1.movements);
 
+const calcDisplaySummary = (mvts, interestRate) => {
+  const sumIn = mvts.filter(mvt => mvt > 0).reduce((acc, mvt) => acc + mvt, 0);
+  labelSumIn.textContent = `${sumIn}€`;
+  const sumOut = mvts.filter(mvt => mvt < 0).reduce((acc, mvt) => acc + mvt, 0);
+  labelSumOut.textContent = `${Math.abs(sumOut)}€`
+  const sumInterest = mvts.filter(mvt => mvt > 0).reduce((acc, mvt) => (mvt * (interestRate / 100) > 1) && (acc += mvt * (interestRate / 100)) || acc, 0);
+  labelSumInterest.textContent = `${sumInterest}€`  
+};
+
+calcDisplaySummary(account1.movements, account1.interestRate)
 
 /////////////////////////////////////////////////
 
@@ -141,7 +151,9 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 //chalenge 2
 // TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
 // TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+/*
 const calcAverageHumanAge = arrAges => arrAges.map(age => age <= 2 ? age * 2 : 16 + age * 4).filter(humanAge => humanAge >= 18 ).reduce((acc, humanAge, i, arr) => i === arr.length - 1 ? (acc + humanAge)/ arr.length  : (acc + humanAge), 0);
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
 console.log([16, 6, 10, 5, 6, 1, 4].map(age => age <= 2 ? age * 2 : 16 + age * 4).filter(humanAge => humanAge >= 18 ));
+*/
