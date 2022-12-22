@@ -89,24 +89,58 @@ const addMovement = movements => {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-addMovement(movements);
+
 
 const balanceToDisplay = mvts => {
   const balance = mvts.reduce((acc, mvt) => acc + mvt, 0);
   labelBalance.innerHTML = `${balance}€`;
 };
-balanceToDisplay(account1.movements);
+
 
 const calcDisplaySummary = (mvts, interestRate) => {
   const sumIn = mvts.filter(mvt => mvt > 0).reduce((acc, mvt) => acc + mvt, 0);
   labelSumIn.textContent = `${sumIn}€`;
   const sumOut = mvts.filter(mvt => mvt < 0).reduce((acc, mvt) => acc + mvt, 0);
-  labelSumOut.textContent = `${Math.abs(sumOut)}€`
-  const sumInterest = mvts.filter(mvt => mvt > 0).reduce((acc, mvt) => (mvt * (interestRate / 100) > 1) && (acc += mvt * (interestRate / 100)) || acc, 0);
-  labelSumInterest.textContent = `${sumInterest}€`  
+  labelSumOut.textContent = `${Math.abs(sumOut)}€`;
+  const sumInterest = mvts
+    .filter(mvt => mvt > 0)
+    .reduce(
+      (acc, mvt) =>
+        (mvt * (interestRate / 100) > 1 &&
+          (acc += mvt * (interestRate / 100))) ||
+        acc,
+      0
+    );
+  labelSumInterest.textContent = `${sumInterest}€`;
 };
 
-calcDisplaySummary(account1.movements, account1.interestRate)
+
+
+const constructShortNames = accounts => {
+  accounts.forEach(acc => {
+    const fullName = acc.owner;
+    acc.username = fullName.split(' ').map(name => name[0].toLowerCase()).join('');
+  });
+};
+constructShortNames(accounts);
+
+let currentAccount;
+btnLogin.addEventListener('click', e => {
+  e.preventDefault();
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  if(currentAccount?.pin === Number(inputLoginPin.value)) {
+    inputLoginPin.value = inputLoginUsername.value = '';
+    inputLoginPin.blur();
+    labelWelcome.textContent = `Welcome back ${currentAccount.owner.split(' ')[0]}`
+    containerApp.style.opacity = 100;
+    addMovement(currentAccount.movements);
+    balanceToDisplay(currentAccount.movements);
+    calcDisplaySummary(currentAccount.movements, currentAccount.interestRate);
+  }
+
+});
 
 /////////////////////////////////////////////////
 
@@ -148,10 +182,10 @@ checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
 
 */
 
-//chalenge 2
+// chalenge 2
 // TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
 // TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
-
+/*
 const calcAverageHumanAge = arrAges =>
   arrAges
     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
@@ -169,4 +203,4 @@ console.log(
     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
     .filter(humanAge => humanAge >= 18)
 );
-
+*/
