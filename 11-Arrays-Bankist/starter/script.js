@@ -166,7 +166,20 @@ btnTransfer.addEventListener('click', e => {
   }
 });
 
-
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const accToDelete = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    accounts.splice(accToDelete, 1);
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
 /////////////////////////////////////////////////
 
 // EXERCICES AND CHALLENGE
