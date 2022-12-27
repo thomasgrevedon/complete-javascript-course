@@ -180,6 +180,23 @@ btnClose.addEventListener('click', e => {
   }
   inputCloseUsername.value = inputClosePin.value = '';
 });
+
+
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+  const loan = Number(inputLoanAmount.value);
+  const checkDeposit = currentAccount.movements.some(
+    mvt => mvt > (loan * 10) / 100
+  );
+  if (checkDeposit) {
+    currentAccount.movements.push(loan);
+  }
+  inputLoanAmount.value = '';
+  inputLoanAmount.blur();
+  displayWebUI(currentAccount);
+}); 
+
+
 /////////////////////////////////////////////////
 
 // EXERCICES AND CHALLENGE
