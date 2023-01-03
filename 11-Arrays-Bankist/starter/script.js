@@ -73,10 +73,10 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-const addMovement = movements => {
+const addMovement = (movements, sort = false) => {
   containerMovements.innerHTML = '';
-
-  movements.forEach((movement, i) => {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+  movs.forEach((movement, i) => {
     const type = movement > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -89,7 +89,6 @@ const addMovement = movements => {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-
 
 const balanceToDisplay = acc => {
   acc.balance = acc.movements.reduce((acc, mvt) => acc + mvt, 0);
@@ -181,7 +180,6 @@ btnClose.addEventListener('click', e => {
   inputCloseUsername.value = inputClosePin.value = '';
 });
 
-
 btnLoan.addEventListener('click', e => {
   e.preventDefault();
   const loan = Number(inputLoanAmount.value);
@@ -194,8 +192,13 @@ btnLoan.addEventListener('click', e => {
   inputLoanAmount.value = '';
   inputLoanAmount.blur();
   displayWebUI(currentAccount);
-}); 
+});
 
+let sorted = false;
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+  addMovement(currentAccount.movements, (sorted = !sorted));
+});
 
 /////////////////////////////////////////////////
 
