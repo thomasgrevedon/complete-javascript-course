@@ -21,9 +21,9 @@ const account1 = {
     '2020-01-28T09:15:04.904Z',
     '2020-04-01T10:17:24.185Z',
     '2020-05-08T14:11:59.604Z',
-    '2020-05-27T17:01:17.194Z',
-    '2020-07-11T23:36:17.929Z',
-    '2020-07-12T10:51:36.790Z',
+    '2023-01-12T17:01:17.194Z',
+    '2023-01-17T23:36:17.929Z',
+    '2023-01-19T10:51:36.790Z',
   ],
   currency: 'EUR',
   locale: 'pt-PT', // de-DE
@@ -81,6 +81,20 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
+const calcDate = date => {
+  const numberOfDaysPassed = (new Date() - date) / (1000 * 60 * 60 * 24);
+  console.log(numberOfDaysPassed);
+  if (numberOfDaysPassed < 1) return `Today`;
+  if (numberOfDaysPassed < 2) return `Yesterday`;
+  if (numberOfDaysPassed < 7) return `This week`;
+
+  const day = String(date.getDate()).padStart(2, 0);
+  const month = String(date.getMonth() + 1).padStart(2, 0);
+  const year = date.getFullYear();
+
+  return `${day}/${month}/${year}`;
+};
+
 const displayMovements = function (acc, sort = false) {
   containerMovements.innerHTML = '';
 
@@ -92,10 +106,8 @@ const displayMovements = function (acc, sort = false) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const date = new Date(acc.movementsDates[i]);
-    const day = String(date.getDate()).padStart(2, 0);
-    const month = String(date.getMonth() + 1).padStart(2, 0);
-    const year = date.getFullYear();
-    const dateMov = `${day}/${month}/${year}`;
+
+    const dateMov = calcDate(date);
 
     const html = `
       <div class="movements__row">
@@ -213,7 +225,9 @@ btnTransfer.addEventListener('click', function (e) {
   ) {
     // Doing the transfer
     currentAccount.movements.push(-amount);
+    currentAccount.movementsDates.push(new Date());
     receiverAcc.movements.push(amount);
+    receiverAcc.movementsDates.push(new Date());
 
     // Update UI
     updateUI(currentAccount);
@@ -228,6 +242,8 @@ btnLoan.addEventListener('click', function (e) {
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
     currentAccount.movements.push(amount);
+
+    currentAccount.movementsDates.push(new Date());
 
     // Update UI
     updateUI(currentAccount);
