@@ -80,19 +80,22 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 /////////////////////////////////////////////////
 // Functions
-
-const calcDate = date => {
+const calcDate = (date, locale) => {
   const numberOfDaysPassed = (new Date() - date) / (1000 * 60 * 60 * 24);
   console.log(numberOfDaysPassed);
   if (numberOfDaysPassed < 1) return `Today`;
   if (numberOfDaysPassed < 2) return `Yesterday`;
   if (numberOfDaysPassed < 7) return `This week`;
 
-  const day = String(date.getDate()).padStart(2, 0);
-  const month = String(date.getMonth() + 1).padStart(2, 0);
-  const year = date.getFullYear();
-
-  return `${day}/${month}/${year}`;
+  // const day = String(date.getDate()).padStart(2, 0);
+  // const month = String(date.getMonth() + 1).padStart(2, 0);
+  // const year = date.getFullYear();
+  const options = {
+    day: 'numeric',
+    month: 'numeric',
+    year: 'numeric',
+  };
+  return new Intl.DateTimeFormat(locale, options).format(date);
 };
 
 const displayMovements = function (acc, sort = false) {
@@ -107,7 +110,7 @@ const displayMovements = function (acc, sort = false) {
 
     const date = new Date(acc.movementsDates[i]);
 
-    const dateMov = calcDate(date);
+    const dateMov = calcDate(date, acc.locale);
 
     const html = `
       <div class="movements__row">
@@ -193,12 +196,24 @@ btnLogin.addEventListener('click', function (e) {
     containerApp.style.opacity = 100;
 
     const date = new Date();
-    const day = String(date.getDate()).padStart(2, 0);
-    const month = String(date.getMonth() + 1).padStart(2, 0);
-    const year = date.getFullYear();
-    const hours = String(date.getHours()).padStart(2, 0);
-    const mins = String(date.getMinutes()).padStart(2, 0);
-    labelDate.textContent = `${day}/${month}/${year} at ${hours}:${mins}`;
+    // const day = String(date.getDate()).padStart(2, 0);
+    // const month = String(date.getMonth() + 1).padStart(2, 0);
+    // const year = date.getFullYear();
+    // const hours = String(date.getHours()).padStart(2, 0);
+    // const mins = String(date.getMinutes()).padStart(2, 0);
+    const options = {
+      hour: 'numeric',
+      minute: 'numeric',
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+      weekday: 'long',
+    };
+
+    labelDate.textContent = new Intl.DateTimeFormat(
+      currentAccount.locale,
+      options
+    ).format(date);
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
