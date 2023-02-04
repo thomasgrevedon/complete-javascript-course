@@ -29,3 +29,14 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+const message = document.createElement('message');
+message.classList.add('cookie-message');
+message.innerHTML =
+  "We use cookie to improve our quality <Button class='button-close-cookie'> Got it </Button>";
+
+const headerElt = document.querySelector('.header');
+headerElt.append(message);
+document
+  .querySelector('.button-close-cookie')
+  .addEventListener('click', () => message.remove());
