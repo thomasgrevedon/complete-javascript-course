@@ -33,10 +33,24 @@ document.addEventListener('keydown', function (e) {
 const message = document.createElement('message');
 message.classList.add('cookie-message');
 message.innerHTML =
-  "We use cookie to improve our quality <Button class='button-close-cookie'> Got it </Button>";
+  "We use cookie to improve our quality <Button class='btn button-close-cookie'> Got it </Button>";
 
 const headerElt = document.querySelector('.header');
-headerElt.append(message);
+headerElt.prepend(message);
 document
   .querySelector('.button-close-cookie')
   .addEventListener('click', () => message.remove());
+
+const learnMore = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+learnMore.addEventListener('click', () => {
+  //const section1Pos = section1.getBoundingClientRect();
+  //console.log(e.target.getBoundingClientRect());
+  // window.scrollTo({
+  //   left: section1Pos.left + window.scrollX,
+  //   top: section1Pos.top + window.scrollY,
+  //   behavior: 'smooth',
+  // });
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
