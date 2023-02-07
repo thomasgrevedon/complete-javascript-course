@@ -1,5 +1,6 @@
 'use strict';
 
+
 ///////////////////////////////////////
 // Modal window
 
@@ -8,6 +9,9 @@ const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const navBarLinks = document.querySelector('.nav__links');
+const navEl = document.querySelector('.nav');
+const section1El = document.querySelector('#section--1');
+const header = document.querySelector('.header');
 
 const openModal = function (e) {
   e.preventDefault();
@@ -68,11 +72,6 @@ const tabContainer = document.querySelector('.operations__tab-container');
 const operationsTabs = document.querySelectorAll('.operations__tab');
 const opContents = document.querySelectorAll('.operations__content');
 
-// event listener on buttons et find closest parent
-// not button then return
-// remove all active on button and content on text area
-// add active class on clicked button and text area
-
 tabContainer.addEventListener('mouseover', e => {
   const clicked = e.target.closest('.operations__tab');
   if (!clicked) return;
@@ -88,3 +87,98 @@ tabContainer.addEventListener('mouseover', e => {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+// NAV BAR FADED CLICKED LINKS
+// create addeventlistner mouseover
+// create addeventlistner mouseleave
+// Create a function that will check if nav link and get it and then will get the parent (closest) and all children (nav_link with querryselectorall)
+// call the function in the event listeners.
+// on all nav link different than the clicked one, pass the opacity to 0.5 or 1
+// Do the same on logo.
+
+const navbar = document.querySelector('.nav__links');
+
+const navEventFunction = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const clicked = e.target;
+    const siblings = clicked.closest('.nav').querySelectorAll('.nav__link');
+    const logo = clicked.closest('.nav').querySelector('.nav__logo');
+    siblings.forEach(sibling => {
+      if (sibling !== clicked) sibling.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+navbar.addEventListener('mouseover', navEventFunction.bind(0.5));
+
+navbar.addEventListener('mouseout', navEventFunction.bind(1));
+
+// FIXED NAV BAR
+// const initialSectionCoord = document.querySelector('#section--1').getBoundingClientRect().y;
+// // console.log(initialSectionCoord);
+// window.addEventListener('scroll', () => {
+//   // console.log(document.querySelector('#section--1').getBoundingClientRect().y);
+//   // console.log(document.querySelector('#section--1').getBoundingClientRect().top);
+//   // console.log(window.scrollY);
+//   const navigationBar = document.querySelector('.nav');
+//   if(window.scrollY > initialSectionCoord) navigationBar.classList.add('sticky')
+//   else navigationBar.classList.remove('sticky')
+// });
+
+// FIXED NAV BAR WITH OBSERVABLE
+const navHeight = navEl.getBoundingClientRect().height;
+const navCallBack = entries => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) {
+    navEl.classList.add('sticky');
+  } else {
+    navEl.classList.remove('sticky');
+    sections.forEach(section => {
+      sectionObserver.observe(section);
+      section.classList.add('section--hidden');
+    });
+  }
+};
+
+const observer = new IntersectionObserver(navCallBack, {
+  root: null,
+  threshold: 0,
+  rootMargin: `-100px`,
+});
+observer.observe(header);
+
+const sectionCallBack = (entries, observer) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+};
+
+const sections = document.querySelectorAll('.section');
+const sectionObserver = new IntersectionObserver(sectionCallBack, {
+  root: null,
+  threshold: 0.15,
+});
+sections.forEach(section => {
+  sectionObserver.observe(section);
+  section.classList.add('section--hidden');
+});
+
+const loadCallback = (entries, observer) => {
+   const [entry] = entries;
+   if(!entry.isIntersecting) return;
+   entry.target.src = entry.target.dataset.src;
+   entry.target.addEventListener('load', () => {
+    entry.target.classList.remove('lazy-img')
+   })
+   observer.unobserve( entry.target);
+};
+
+const imgages = document.querySelectorAll('img[data-src]');
+const imgOberver = new IntersectionObserver(loadCallback, {
+  root: null,
+  threshold: 0,
+  rootMargin: '200px',
+});
+imgages.forEach(image => imgOberver.observe(image));
