@@ -31,62 +31,71 @@ GOOD LUCK 😀
 */
 
 
-const renderCountry = function (data, className = '') {
-    const html = `
-    <article class="country ${className}">
-      <img class="country__img" src="${data.flags.png}" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          +data.population / 1000000
-        ).toFixed(1)} people</p>
-        <p class="country__row"><span>🗣️</span>${data.languages[Object.keys(data.languages)[0]]}</p>
-        <p class="country__row"><span>💰</span>${data.currencies[Object.keys(data.currencies)[0]]?.name}</p>
-      </div>
-    </article>
-    `;
-    countriesContainer.insertAdjacentHTML('beforeend', html);
-    countriesContainer.style.opacity = 1;
-  };
+// const renderCountry = function (data, className = '') {
+//     const html = `
+//     <article class="country ${className}">
+//       <img class="country__img" src="${data.flags.png}" />
+//       <div class="country__data">
+//         <h3 class="country__name">${data.name.common}</h3>
+//         <h4 class="country__region">${data.region}</h4>
+//         <p class="country__row"><span>👫</span>${(
+//           +data.population / 1000000
+//         ).toFixed(1)} people</p>
+//         <p class="country__row"><span>🗣️</span>${data.languages[Object.keys(data.languages)[0]]}</p>
+//         <p class="country__row"><span>💰</span>${data.currencies[Object.keys(data.currencies)[0]]?.name}</p>
+//       </div>
+//     </article>
+//     `;
+//     countriesContainer.insertAdjacentHTML('beforeend', html);
+//     countriesContainer.style.opacity = 1;
+//   };
   
-  const renderError = function (msg) {
-    countriesContainer.insertAdjacentText('beforeend', msg);
-    countriesContainer.style.opacity = 1;
-  };
+//   const renderError = function (msg) {
+//     countriesContainer.insertAdjacentText('beforeend', msg);
+//     countriesContainer.style.opacity = 1;
+//   };
   
-  const getJSON = function (url, errorMsg = 'Something went wrong') {
-    return fetch(url).then(response => {
-      if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
+//   const getJSON = function (url, errorMsg = 'Something went wrong') {
+//     return fetch(url).then(response => {
+//       if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);
   
-      return response.json();
-    });
-  };
+//       return response.json();
+//     });
+//   };
 
 
 
-const whereAmI = (lat, long) => {
-    fetch(`https://geocode.xyz/${lat},${long}?geoit=json&auth=255591784958044143996x102716`)
-    .then(res => {
-        if(!res.ok) throw new Error("Could not get answer from URL")
-        return res.json()})
-    .then(data => {
-        console.log(data);
-        console.log(`You are in ${data.city}, ${data.country}`)
-        return getJSON(`https://restcountries.com/v3.1/name/${data.country}`);
-    }).then(data => {
-        console.log(data);
-         const [data2] = data;
-         return data2
-    }).then(data2 => {
-        console.log(data2);
-        renderCountry(data2);
-    })
-    .catch(err => 
-        console.log(err)
-    )
-}
-whereAmI(37.532600, 127.024612)
+// const whereAmI = (lat, long) => {
+//     fetch(`https://geocode.xyz/${lat},${long}?geoit=json&auth=255591784958044143996x102716`)
+//     .then(res => {
+//         if(!res.ok) throw new Error("Could not get answer from URL")
+//         return res.json()})
+//     .then(data => {
+//         console.log(data);
+//         console.log(`You are in ${data.city}, ${data.country}`)
+//         return getJSON(`https://restcountries.com/v3.1/name/${data.country}`);
+//     }).then(data => {
+//         console.log(data);
+//          const [data2] = data;
+//          return data2
+//     }).then(data2 => {
+//         console.log(data2);
+//         renderCountry(data2);
+//     })
+//     .catch(err => 
+//         console.log(err)
+//     )
+// }
+// whereAmI(37.532600, 127.024612)
  
 // TEST COORDINATES 2: 19.037, 72.873
 // TEST COORDINATES 2: -33.933, 18.474
+
+// Testing the event loop (callback queue and microtasks queue)
+console.log("start");
+setTimeout(_ => console.log("Timeout 1"), 0);
+Promise.resolve("Promise").then(res => {
+  console.log(res);
+  setTimeout(_=> console.log(res), 5);
+})
+console.log("end");
